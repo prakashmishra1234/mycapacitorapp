@@ -38,12 +38,16 @@ export default function CustomDrawer(props: any) {
           sx: {
             backgroundColor: theme === "dark" ? "primary.dark" : "primary.main",
             color: theme === "dark" ? "primary.main" : "primary.dark",
+            width: drawerComp === "notification" ? "100%" : null,
           },
         }}
       >
         <Box
           sx={{
-            width: { xs: "15rem", md: "30rem" },
+            width:
+              drawerComp === "notification"
+                ? "100%"
+                : { xs: "15rem", md: "30rem" },
             padding: "1rem 0",
           }}
         >

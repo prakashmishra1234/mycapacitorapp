@@ -25,7 +25,7 @@ const AuthContext = React.createContext<IContext>({
   setDrawerComp: () => {},
   drawerAnchor: DrawerAnchorEnum.Left,
   setdrawerAnchor: () => {},
-  theme: "light",
+  theme: "dark",
   setTheme: () => {},
   login: false,
   setLogin: () => {},
@@ -37,7 +37,7 @@ const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [drawerAnchor, setdrawerAnchor] = React.useState<DrawerAnchorEnum>(
     DrawerAnchorEnum.Left
   );
-  const [theme, setTheme] = React.useState("light");
+  const [theme, setTheme] = React.useState("dark");
   const [login, setLogin] = React.useState(false);
 
   return (

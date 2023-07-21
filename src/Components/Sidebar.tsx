@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { AuthContext, DrawerAnchorEnum } from "../Store";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -7,9 +7,11 @@ import Avatar from "@mui/material/Avatar";
 
 const Sidebar = () => {
   const context = React.useContext(AuthContext);
+  const { setOpenDrawer, login, setDrawerComp, setdrawerAnchor, setLogin } =
+    context;
 
   const closeDrawer = (value: boolean) => {
-    context.setOpenDrawer(value);
+    setOpenDrawer(value);
   };
 
   const toggleDrawer = (
@@ -17,9 +19,22 @@ const Sidebar = () => {
     comp: string,
     direction: DrawerAnchorEnum
   ) => {
-    context.setOpenDrawer(value);
-    context.setDrawerComp(comp);
-    context.setdrawerAnchor(direction);
+    setOpenDrawer(value);
+    setDrawerComp(comp);
+    setdrawerAnchor(direction);
+  };
+
+  const onclickLogin = (value: boolean) => {
+    setLogin(value);
+    if (value === false) {
+      localStorage.removeItem("mycapacitorappLogin");
+    } else {
+      localStorage.setItem(
+        "mycapacitorappLogin",
+        JSON.stringify({ isLoggedIn: value })
+      );
+    }
+    closeDrawer(false);
   };
 
   const setting = (
@@ -94,22 +109,25 @@ const Sidebar = () => {
             About
           </Link>
         </Typography>
-        <Typography sx={{ margin: "1rem 0" }}>
-          <Link
-            to="/login"
+
+        {login ? (
+          <Typography
+            sx={{ margin: "1rem 0", cursor: "pointer" }}
             style={{ textDecoration: "none", color: "inherit" }}
-            onClick={() => closeDrawer(false)}
+            onClick={() => onclickLogin(false)}
           >
-            Login
-          </Link>
-        </Typography>
-        <Typography
-          sx={{ margin: "1rem 0", cursor: "pointer" }}
-          style={{ textDecoration: "none", color: "inherit" }}
-          onClick={() => closeDrawer(false)}
-        >
-          Logout
-        </Typography>
+            Logout
+          </Typography>
+        ) : (
+          <Typography sx={{ margin: "1rem 0" }}>
+            <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              Login
+            </Link>
+          </Typography>
+        )}
       </Box>
       {setting}
     </React.Fragment>

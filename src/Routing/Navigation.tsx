@@ -9,9 +9,9 @@ import About from "../Pages/About";
 const Navigation = () => {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Main />}>
         <Route path="" element={<Home />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile" element={<Profile />} />
       </Route>

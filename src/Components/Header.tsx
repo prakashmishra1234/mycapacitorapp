@@ -5,7 +5,19 @@ import { AuthContext } from "../Store";
 
 const Header = () => {
   const context = React.useContext(AuthContext);
-  const { login } = context;
+  const { login, setLogin } = context;
+
+  const onclickLogout = (value: boolean) => {
+    setLogin(value);
+    if (value === false) {
+      localStorage.removeItem("mycapacitorappLogin");
+    } else {
+      localStorage.setItem(
+        "mycapacitorappLogin",
+        JSON.stringify({ isLoggedIn: value })
+      );
+    }
+  };
 
   return (
     <React.Fragment>
@@ -35,27 +47,12 @@ const Header = () => {
           <Typography
             sx={{ margin: "0 1rem", cursor: "pointer" }}
             style={{ textDecoration: "none", color: "inherit" }}
-            onClick={() => {
-              localStorage.setItem(
-                "mycapacitorappLogin",
-                JSON.stringify({ isLoggedIn: false })
-              );
-              context.setLogin(false);
-            }}
+            onClick={() => onclickLogout(false)}
           >
             Logout
           </Typography>
         ) : (
-          <Typography
-            sx={{ margin: "0 1rem" }}
-            onClick={() => {
-              localStorage.setItem(
-                "mycapacitorappLogin",
-                JSON.stringify({ isLoggedIn: true })
-              );
-              context.setLogin(true);
-            }}
-          >
+          <Typography sx={{ margin: "0 1rem" }}>
             <Link
               to="/login"
               style={{ textDecoration: "none", color: "inherit" }}

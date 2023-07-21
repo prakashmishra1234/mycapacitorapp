@@ -44,12 +44,15 @@ const Main = () => {
   }, []);
 
   const onThemeChange = (theme: string) => {
-    setAnchorElUser(false);
     localStorage.setItem(
       "mycapacitorapptheme",
       JSON.stringify({ theme: theme })
     );
     setTheme(theme);
+  };
+
+  const onMenuChange = (value: boolean) => {
+    setAnchorElUser(value);
   };
 
   const themebutton = (
@@ -81,12 +84,7 @@ const Main = () => {
   const profile = (
     <Box sx={{ flexGrow: 0, display: { md: "block", xs: "flex" } }}>
       <Tooltip title="click to open">
-        <IconButton
-          onClick={() => {
-            setAnchorElUser(true);
-          }}
-          sx={{ p: 0 }}
-        >
+        <IconButton onClick={() => onMenuChange(true)} sx={{ p: 0 }}>
           <Avatar
             alt="Remy Sharp"
             src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=740&t=st=1689324579~exp=1689325179~hmac=6fe260c6e879ea8a25412bcb248295f073e7f127fc680d5c2e853773f3463aa5"
@@ -106,15 +104,13 @@ const Main = () => {
           horizontal: "right",
         }}
         open={anchorElUser}
-        onClose={() => {
-          setAnchorElUser(false);
-        }}
+        onClose={() => onMenuChange(false)}
       >
         <MenuItem
           sx={{ display: "flex" }}
           onClick={() => {
             navigate("/profile");
-            setAnchorElUser(false);
+            onMenuChange(false);
           }}
         >
           <AccountCircleOutlinedIcon />
@@ -140,9 +136,7 @@ const Main = () => {
       <Box sx={{ display: { md: "none", xs: "flex" } }}>
         <ListOutlinedIcon
           sx={{ cursor: "pointer" }}
-          onClick={() => {
-            toggleDrawer(true, "sidebar", DrawerAnchorEnum.Left);
-          }}
+          onClick={() => toggleDrawer(true, "sidebar", DrawerAnchorEnum.Left)}
         />
       </Box>
       <Typography variant="h6" style={{ fontFamily: "monospace" }}>
@@ -156,9 +150,9 @@ const Main = () => {
       {isPlatform("android") ? (
         <NotificationsNoneOutlinedIcon
           style={{ cursor: "pointer" }}
-          onClick={() => {
-            toggleDrawer(true, "notification", DrawerAnchorEnum.Right);
-          }}
+          onClick={() =>
+            toggleDrawer(true, "notification", DrawerAnchorEnum.Right)
+          }
         />
       ) : null}
     </Box>
