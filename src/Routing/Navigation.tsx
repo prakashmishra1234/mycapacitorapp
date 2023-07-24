@@ -5,12 +5,28 @@ import Main from "../Pages/Main";
 import Login from "../Pages/Login";
 import Profile from "../Pages/Profile";
 import About from "../Pages/About";
+import ProtectedRoute from "./comp/ProtectedRoute";
+import PublicRoute from "./comp/PublicRoute";
 
 const Navigation = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Main />}>
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Main />
+          </ProtectedRoute>
+        }
+      >
         <Route path="" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile" element={<Profile />} />

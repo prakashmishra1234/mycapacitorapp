@@ -17,14 +17,8 @@ const Main = () => {
   const context = React.useContext(AuthContext);
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState(false);
-  const {
-    theme,
-    setTheme,
-    setOpenDrawer,
-    setDrawerComp,
-    setdrawerAnchor,
-    setLogin,
-  } = context;
+  const { theme, setTheme, setOpenDrawer, setDrawerComp, setdrawerAnchor } =
+    context;
 
   const toggleDrawer = (
     value: boolean,
@@ -35,13 +29,6 @@ const Main = () => {
     setDrawerComp(comp);
     setdrawerAnchor(direction);
   };
-
-  React.useEffect(() => {
-    const mode = JSON.parse(localStorage.getItem("mycapacitorapptheme")!);
-    const login = JSON.parse(localStorage.getItem("mycapacitorappLogin")!);
-    setTheme(mode?.theme ?? "light");
-    setLogin(login?.isLoggedIn ?? false);
-  }, []);
 
   const onThemeChange = (theme: string) => {
     localStorage.setItem(

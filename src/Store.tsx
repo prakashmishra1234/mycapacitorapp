@@ -16,6 +16,8 @@ interface IContext {
   setTheme: React.Dispatch<React.SetStateAction<string>>;
   login: boolean;
   setLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  checkedNotification: boolean;
+  setCheckedNotification: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AuthContext = React.createContext<IContext>({
@@ -25,19 +27,24 @@ const AuthContext = React.createContext<IContext>({
   setDrawerComp: () => {},
   drawerAnchor: DrawerAnchorEnum.Left,
   setdrawerAnchor: () => {},
-  theme: "dark",
+  theme: "light",
   setTheme: () => {},
   login: false,
   setLogin: () => {},
+  checkedNotification: false,
+  setCheckedNotification: () => {},
 });
 
 const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [openDrawer, setOpenDrawer] = React.useState<boolean>(false);
   const [drawerComp, setDrawerComp] = React.useState<string>("");
+  const [checkedNotification, setCheckedNotification] =
+    React.useState<boolean>(false);
+
   const [drawerAnchor, setdrawerAnchor] = React.useState<DrawerAnchorEnum>(
     DrawerAnchorEnum.Left
   );
-  const [theme, setTheme] = React.useState("dark");
+  const [theme, setTheme] = React.useState("light");
   const [login, setLogin] = React.useState(false);
 
   return (
@@ -53,6 +60,8 @@ const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         setTheme,
         login,
         setLogin,
+        checkedNotification,
+        setCheckedNotification,
       }}
     >
       {children}

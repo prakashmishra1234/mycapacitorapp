@@ -13,7 +13,7 @@ import { isPlatform } from "@ionic/react";
 
 const Settings = () => {
   const context = React.useContext(AuthContext);
-  const [checkedNotification, setCheckedNotification] = React.useState(false);
+  const { checkedNotification, setCheckedNotification } = context;
   const [checkedLocation, setCheckedLocation] = React.useState(false);
   const { theme, setTheme } = context;
 
@@ -45,14 +45,21 @@ const Settings = () => {
               if (checkedNotification) {
                 unregisterPushNotification();
                 localStorage.removeItem("mycapacitorappnotification");
+                setCheckedNotification(false);
               } else {
-                RegisterPushNotification();
-                localStorage.setItem(
-                  "mycapacitorappnotification",
-                  JSON.stringify({ isNotificationEnabled: true })
-                );
+                RegisterPushNotification().then((res) => {
+                  if (res === true) {
+                    localStorage.setItem(
+                      "mycapacitorappnotification",
+                      JSON.stringify({ isNotificationEnabled: true })
+                    );
+                    setCheckedNotification(true);
+                  } else {
+                    setCheckedNotification(false);
+                    localStorage.removeItem("mycapacitorappnotification");
+                  }
+                });
               }
-              setCheckedNotification(!checkedNotification);
             }}
           />
         }

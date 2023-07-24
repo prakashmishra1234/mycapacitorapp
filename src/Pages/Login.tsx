@@ -18,9 +18,7 @@ import { AuthContext } from "../Store";
 const Login = () => {
   const navigate = useNavigate();
   const context = React.useContext(AuthContext);
-  const { login, setLogin, theme } = context;
-
-  console.log(theme);
+  const { setLogin, theme } = context;
 
   function Copyright(props: any) {
     return (
@@ -39,7 +37,7 @@ const Login = () => {
       "mycapacitorappLogin",
       JSON.stringify({ isLoggedIn: true })
     );
-    // navigate("/");
+    navigate("/");
   };
 
   return (
@@ -47,7 +45,9 @@ const Login = () => {
       sx={{
         backgroundColor: theme === "dark" ? "primary.dark" : "primary.main",
         color: theme === "dark" ? "primary.main" : "primary.dark",
-        height: "100%",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
       }}
     >
       <Formik
@@ -57,17 +57,19 @@ const Login = () => {
           onclickLogin(values);
         }}
       >
-        {/* {(props) => (
+        {(props) => (
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 8,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
               }}
             >
+              <Avatar sx={{ m: 1, bgcolor: "#3b3a37" }}>
+                <LockOutlinedIcon />
+              </Avatar>
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
@@ -121,12 +123,15 @@ const Login = () => {
                   <Grid item xs>
                     <Link to="">Forgot password?</Link>
                   </Grid>
+                  {/* <Grid item>
+                    <Link to="">{"Don't have an account? Sign Up"}</Link>
+                  </Grid> */}
                 </Grid>
               </Box>
             </Box>
             <Copyright sx={{ mt: 8, mb: 4 }} />
           </Container>
-        )} */}
+        )}
       </Formik>
     </Box>
   );

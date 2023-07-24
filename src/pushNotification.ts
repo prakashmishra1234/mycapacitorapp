@@ -5,40 +5,63 @@ import {
   PushNotifications,
   Token,
 } from "@capacitor/push-notifications";
+import { FCM } from "@capacitor-community/fcm";
 
-export const RegisterPushNotification = () => {
-  PushNotifications.checkPermissions().then((res) => {
-    if (res.receive === "denied") {
-      PushNotifications.requestPermissions().then((res) => {
-        if (res.receive === "denied") {
-          createTost("Push Notification permission denied");
-        } else {
-          createTost("Push Notification permission granted");
-          register();
-        }
-      });
+export const RegisterPushNotification = async (): Promise<boolean> => {
+  let permission: boolean = false;
+  try {
+    const permissionResult = await PushNotifications.checkPermissions();
+    if (permissionResult.receive === "granted") {
+      await register();
+      permission = true;
     } else {
-      createTost("Push Notification permission granted");
-      register();
+      await requestNotificationPermission().then((res) => {
+        permission = res;
+      });
     }
-  });
+  } catch (error) {
+    console.log(error, "Push Notification registration error");
+    permission = false;
+  }
+  console.log(permission, "permission");
+  return permission;
 };
 
-const register = async () => {
-  PushNotifications.register();
+export const requestNotificationPermission = async (): Promise<boolean> => {
+  const requestResult = await PushNotifications.requestPermissions();
+  if (requestResult.receive === "granted") {
+    register();
+    return true;
+  } else {
+    createTost("Please enable notification permissions");
+    return false;
+  }
+};
 
+const register = async (): Promise<void> => {
+  PushNotifications.register();
   PushNotifications.addListener("registration", (token: Token) => {
-    console.log(token.value, "Push notification message");
+    console.log(token.value, "Push notification message, registration");
+    FCM.subscribeTo({ topic: "test-2" })
+      .then((res) => {
+        console.log("subscribe to topic", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
   PushNotifications.addListener("registrationError", (error: any) => {
-    console.log(error, "Push notification message");
+    console.log(error, "Push notification message, registrationError");
   });
 
   PushNotifications.addListener(
     "pushNotificationReceived",
     (notification: PushNotificationSchema) => {
-      console.log(notification, "Push notification message");
+      console.log(
+        notification,
+        "Push notification message, pushNotificationReceived"
+      );
     }
   );
 
@@ -50,7 +73,7 @@ const register = async () => {
   );
 };
 
-export const unregisterPushNotification = async () => {
+export const unregisterPushNotification = async (): Promise<void> => {
   await PushNotifications.unregister();
   await PushNotifications.removeAllListeners();
   await PushNotifications.removeAllDeliveredNotifications();
