@@ -25,18 +25,18 @@ const Main = () => {
     value: boolean,
     comp: string,
     direction: DrawerAnchorEnum
-  ) => {
+  ): void => {
     setOpenDrawer(value);
     setDrawerComp(comp);
     setdrawerAnchor(direction);
   };
 
-  const onThemeChange = (theme: string) => {
+  const onThemeChange = (theme: string): void => {
     setLocalStorageData("mycapacitorapptheme", { theme: theme });
     setTheme(theme);
   };
 
-  const onMenuChange = (value: boolean) => {
+  const onMenuChange = (value: boolean): void => {
     setAnchorElUser(value);
   };
 
@@ -55,7 +55,10 @@ const Main = () => {
       ) : (
         <MenuItem
           sx={{ display: "flex" }}
-          onClick={() => onThemeChange("dark")}
+          onClick={() => {
+            onThemeChange("dark");
+            onMenuChange(false);
+          }}
         >
           <NightlightOutlinedIcon />
           <Typography sx={{ marginLeft: "1rem" }} textAlign="center">
@@ -77,6 +80,12 @@ const Main = () => {
         </IconButton>
       </Tooltip>
       <Menu
+        PaperProps={{
+          style: {
+            backgroundColor: theme === "dark" ? "#3b3a37" : "#fff",
+            color: theme === "dark" ? "#fff" : "#3b3a37",
+          },
+        }}
         sx={{ mt: "45px" }}
         id="menu-appbar"
         anchorOrigin={{
