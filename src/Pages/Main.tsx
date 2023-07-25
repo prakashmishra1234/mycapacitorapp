@@ -147,8 +147,8 @@ const Main = () => {
     <React.Fragment>
       <Box
         sx={{
-          backgroundColor: theme === "dark" ? "primary.dark" : "primary.main",
-          color: theme === "dark" ? "primary.main" : "primary.dark",
+          backgroundColor: theme === "dark" ? "primary.dark" : "primary.light",
+          color: theme === "dark" ? "primary.light" : "primary.dark",
         }}
       >
         <CustomDrawer />

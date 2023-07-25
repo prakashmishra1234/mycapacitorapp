@@ -18,8 +18,18 @@ import {
   setLocalStorageData,
 } from "../utils/helper";
 import { AuthContext } from "../Store";
+import { makeStyles } from "@mui/material";
+
+// const useStyles = makeStyles(() => ({
+//   focusedLabel: {
+//     "& label.Mui-focused": {
+//       color: "#3c3",
+//     },
+//   },
+// }));
 
 const Login = () => {
+  // const classes = useStyles();
   const navigate = useNavigate();
   const context = React.useContext(AuthContext);
   const { setLogin, theme } = context;
@@ -44,8 +54,8 @@ const Login = () => {
   return (
     <Box
       sx={{
-        backgroundColor: theme === "dark" ? "primary.dark" : "primary.main",
-        color: theme === "dark" ? "primary.main" : "primary.dark",
+        backgroundColor: theme === "dark" ? "primary.dark" : "primary.light",
+        color: theme === "dark" ? "primary.light" : "primary.dark",
         height: "100vh",
         display: "flex",
         alignItems: "center",
@@ -82,7 +92,14 @@ const Login = () => {
                 <TextField
                   margin="normal"
                   required
+                  variant="filled"
+                  color={theme === "dark" ? "secondary" : "primary"}
                   fullWidth
+                  sx={{
+                    "& label.Mui-focused": {
+                      color: "primary.dark",
+                    },
+                  }}
                   id="email"
                   label="Email Address"
                   name="email"
@@ -93,12 +110,19 @@ const Login = () => {
                   }}
                 />
                 {props.errors.email && props.touched.email && (
-                  <span>{props.errors.email}</span>
+                  <span style={{ color: "red" }}>{props.errors.email}</span>
                 )}
                 <TextField
                   margin="normal"
                   required
+                  variant="filled"
                   fullWidth
+                  sx={{
+                    "& label.Mui-focused": {
+                      color: "primary.dark",
+                    },
+                  }}
+                  color={theme === "dark" ? "secondary" : "primary"}
                   name="password"
                   label="Password"
                   type="password"
@@ -108,13 +132,11 @@ const Login = () => {
                     props.setFieldValue("password", event.target.value);
                   }}
                 />
-                <FormControlLabel
-                  control={<Checkbox value="remember" />}
-                  label="Remember me"
-                />
+
                 <Button
                   type="submit"
                   fullWidth
+                  color={theme === "dark" ? "secondary" : "primary"}
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
@@ -122,7 +144,9 @@ const Login = () => {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link to="">Forgot password?</Link>
+                    <Link style={{ color: "inherit" }} to="">
+                      Forgot password?
+                    </Link>
                   </Grid>
                   {/* <Grid item>
                     <Link to="">{"Don't have an account? Sign Up"}</Link>

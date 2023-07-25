@@ -36,8 +36,9 @@ export default function CustomDrawer(props: any) {
         onOpen={toggleDrawer(true)}
         PaperProps={{
           sx: {
-            backgroundColor: theme === "dark" ? "primary.dark" : "primary.main",
-            color: theme === "dark" ? "primary.main" : "primary.dark",
+            backgroundColor:
+              theme === "dark" ? "primary.dark" : "primary.light",
+            color: theme === "dark" ? "primary.light" : "primary.dark",
             width: drawerComp === "notification" ? "100%" : null,
           },
         }}
