@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { AuthContext, DrawerAnchorEnum } from "../Store";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import Avatar from "@mui/material/Avatar";
+import { setLocalStorageData } from "../utils/helper";
 
 const Sidebar = () => {
   const context = React.useContext(AuthContext);
@@ -29,10 +30,7 @@ const Sidebar = () => {
     if (value === false) {
       localStorage.removeItem("mycapacitorappLogin");
     } else {
-      localStorage.setItem(
-        "mycapacitorappLogin",
-        JSON.stringify({ isLoggedIn: value })
-      );
+      setLocalStorageData("mycapacitorappLogin", { isLoggedIn: value });
     }
     closeDrawer(false);
   };

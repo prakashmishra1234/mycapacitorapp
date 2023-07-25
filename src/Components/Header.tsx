@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Store";
+import { setLocalStorageData } from "../utils/helper";
 
 const Header = () => {
   const context = React.useContext(AuthContext);
@@ -12,10 +13,7 @@ const Header = () => {
     if (value === false) {
       localStorage.removeItem("mycapacitorappLogin");
     } else {
-      localStorage.setItem(
-        "mycapacitorappLogin",
-        JSON.stringify({ isLoggedIn: value })
-      );
+      setLocalStorageData("mycapacitorappLogin", { isLoggedIn: value });
     }
   };
 

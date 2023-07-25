@@ -23,7 +23,6 @@ export const RegisterPushNotification = async (): Promise<boolean> => {
     console.log(error, "Push Notification registration error");
     permission = false;
   }
-  console.log(permission, "permission");
   return permission;
 };
 

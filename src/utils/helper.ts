@@ -42,3 +42,7 @@ export const LoginValidator = {
     password: yup.string().required("password is required"),
   }),
 };
+
+export const setLocalStorageData = (key: string, value: any): void => {
+  localStorage.setItem(key, JSON.stringify(value));
+};

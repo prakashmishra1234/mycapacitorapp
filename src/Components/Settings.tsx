@@ -10,6 +10,7 @@ import myService from "../Myplugin/MyPlugin";
 import { Toast } from "@capacitor/toast";
 import { AuthContext } from "../Store";
 import { isPlatform } from "@ionic/react";
+import { setLocalStorageData } from "../utils/helper";
 
 const Settings = () => {
   const context = React.useContext(AuthContext);
@@ -49,10 +50,9 @@ const Settings = () => {
               } else {
                 RegisterPushNotification().then((res) => {
                   if (res === true) {
-                    localStorage.setItem(
-                      "mycapacitorappnotification",
-                      JSON.stringify({ isNotificationEnabled: true })
-                    );
+                    setLocalStorageData("mycapacitorappnotification", {
+                      isNotificationEnabled: true,
+                    });
                     setCheckedNotification(true);
                   } else {
                     setCheckedNotification(false);
@@ -90,10 +90,9 @@ const Settings = () => {
                   .then((res) => {
                     console.log(res);
                     setCheckedLocation(true);
-                    localStorage.setItem(
-                      "mycapacitorappLocation",
-                      JSON.stringify({ isLocationServiceEnabled: true })
-                    );
+                    setLocalStorageData("mycapacitorappLocation", {
+                      isLocationServiceEnabled: true,
+                    });
                   })
                   .catch((err) => {
                     console.log("Error", err);
@@ -119,16 +118,10 @@ const Settings = () => {
             onChange={(e) => {
               if (theme === "dark") {
                 setTheme("light");
-                localStorage.setItem(
-                  "mycapacitorapptheme",
-                  JSON.stringify({ theme: "light" })
-                );
+                setLocalStorageData("mycapacitorapptheme", { theme: "light" });
               } else {
                 setTheme("dark");
-                localStorage.setItem(
-                  "mycapacitorapptheme",
-                  JSON.stringify({ theme: "dark" })
-                );
+                setLocalStorageData("mycapacitorapptheme", { theme: "dark" });
               }
             }}
           />

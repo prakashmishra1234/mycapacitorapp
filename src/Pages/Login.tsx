@@ -12,7 +12,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Formik } from "formik";
-import { LoginForm, LoginValidator } from "../utils/helper";
+import {
+  LoginForm,
+  LoginValidator,
+  setLocalStorageData,
+} from "../utils/helper";
 import { AuthContext } from "../Store";
 
 const Login = () => {
@@ -33,10 +37,7 @@ const Login = () => {
 
   const onclickLogin = (value: LoginForm) => {
     setLogin(true);
-    localStorage.setItem(
-      "mycapacitorappLogin",
-      JSON.stringify({ isLoggedIn: true })
-    );
+    setLocalStorageData("mycapacitorappLogin", { isLoggedIn: true });
     navigate("/");
   };
 

@@ -12,6 +12,7 @@ import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { setLocalStorageData } from "../utils/helper";
 
 const Main = () => {
   const context = React.useContext(AuthContext);
@@ -31,10 +32,7 @@ const Main = () => {
   };
 
   const onThemeChange = (theme: string) => {
-    localStorage.setItem(
-      "mycapacitorapptheme",
-      JSON.stringify({ theme: theme })
-    );
+    setLocalStorageData("mycapacitorapptheme", { theme: theme });
     setTheme(theme);
   };
 
