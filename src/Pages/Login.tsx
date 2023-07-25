@@ -20,16 +20,7 @@ import {
 import { AuthContext } from "../Store";
 import { makeStyles } from "@mui/material";
 
-// const useStyles = makeStyles(() => ({
-//   focusedLabel: {
-//     "& label.Mui-focused": {
-//       color: "#3c3",
-//     },
-//   },
-// }));
-
 const Login = () => {
-  // const classes = useStyles();
   const navigate = useNavigate();
   const context = React.useContext(AuthContext);
   const { setLogin, theme } = context;
@@ -91,6 +82,12 @@ const Login = () => {
               >
                 <TextField
                   margin="normal"
+                  inputProps={{
+                    style: {
+                      background: theme === "dark" ? "#fff" : "#3b3a37",
+                      color: theme === "dark" ? "#3b3a37" : "#fff",
+                    },
+                  }}
                   required
                   variant="filled"
                   color={theme === "dark" ? "secondary" : "primary"}
@@ -117,6 +114,12 @@ const Login = () => {
                   required
                   variant="filled"
                   fullWidth
+                  inputProps={{
+                    style: {
+                      background: theme === "dark" ? "#fff" : "#3b3a37",
+                      color: theme === "dark" ? "#3b3a37" : "#fff",
+                    },
+                  }}
                   sx={{
                     "& label.Mui-focused": {
                       color: "primary.dark",
