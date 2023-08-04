@@ -1,7 +1,7 @@
-import React from "react";
+import { Box } from "@mui/material";
 
 const About = () => {
-  return <div>About</div>;
+  return <Box>About</Box>;
 };
 
 export default About;
