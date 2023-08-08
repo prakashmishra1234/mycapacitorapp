@@ -1,45 +1,80 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
+const primary = {
+  main: "#3b3a37",
+  dark: "",
+  light: "#fff",
+};
+
+const secondary = {
+  main: "#fff",
+  dark: "",
+  light: "",
+};
+
+const mode = JSON.parse(localStorage.getItem("mycapacitorapptheme")!);
+
 const theme = createTheme({
   palette: {
-    primary: {
-      main: "#3b3a37",
-      dark: "#3b3a37",
-      light: "#fff",
-    },
-    secondary: {
-      main: "#fff",
-    },
+    mode: mode.theme,
+    primary: primary,
+    secondary: secondary,
   },
   components: {
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          // background: "inherit",
-          // color: "inherit",
-          // borderRight: "1px solid grey",
-        },
-      },
-    },
     MuiSwitch: {
       styleOverrides: {
-        switchBase: {
-          color: "#fff",
-        },
-        colorPrimary: {
+        switchBase: (theme) => ({
+          color:
+            theme.theme.palette.mode === "dark"
+              ? theme.theme.palette.primary.light
+              : theme.theme.palette.primary.main,
+        }),
+        colorPrimary: (theme) => ({
           "&.Mui-checked": {
-            color: "#0af211",
+            color:
+              theme.theme.palette.mode === "dark"
+                ? theme.theme.palette.primary.light
+                : theme.theme.palette.primary.main,
           },
-        },
-        track: {
+        }),
+        track: (theme) => ({
           opacity: 0.2,
-          backgroundColor: "#71b073",
+          backgroundColor:
+            theme.theme.palette.mode === "dark"
+              ? theme.theme.palette.primary.light
+              : theme.theme.palette.primary.dark,
           ".Mui-checked.Mui-checked + &": {
             opacity: 0.7,
-            backgroundColor: "#71b073",
           },
-        },
+        }),
       },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: (theme) => ({
+          backgroundColor:
+            theme.theme.palette.mode === "dark"
+              ? theme.theme.palette.primary.main
+              : theme.theme.palette.primary.light,
+        }),
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: (theme) => ({
+          color:
+            theme.theme.palette.mode === "dark"
+              ? theme.theme.palette.primary.main
+              : theme.theme.palette.primary.light,
+          backgroundColor:
+            theme.theme.palette.mode === "dark"
+              ? theme.theme.palette.primary.light
+              : theme.theme.palette.primary.main,
+        }),
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {},
     },
   },
 });

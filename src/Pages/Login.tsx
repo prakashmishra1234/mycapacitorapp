@@ -19,6 +19,7 @@ import {
 } from "../utils/helper";
 import { AuthContext } from "../Store";
 import { makeStyles } from "@mui/material";
+import { LoginInputs } from "../Components/Styled/Components";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -45,8 +46,6 @@ const Login = () => {
   return (
     <Box
       sx={{
-        backgroundColor: theme === "dark" ? "primary.dark" : "primary.light",
-        color: theme === "dark" ? "primary.light" : "primary.dark",
         height: "100vh",
         display: "flex",
         alignItems: "center",
@@ -80,28 +79,15 @@ const Login = () => {
                 onSubmit={props.handleSubmit}
                 sx={{ mt: 1 }}
               >
-                <TextField
+                <LoginInputs
                   margin="normal"
-                  inputProps={{
-                    style: {
-                      background: theme === "dark" ? "#fff" : "#3b3a37",
-                      color: theme === "dark" ? "#3b3a37" : "#fff",
-                    },
-                  }}
                   required
                   variant="filled"
-                  color={theme === "dark" ? "secondary" : "primary"}
                   fullWidth
-                  sx={{
-                    "& label.Mui-focused": {
-                      color: "primary.dark",
-                    },
-                  }}
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  autoFocus
                   onChange={(event) => {
                     props.setFieldValue("email", event.target.value);
                   }}
@@ -109,23 +95,11 @@ const Login = () => {
                 {props.errors.email && props.touched.email && (
                   <span style={{ color: "red" }}>{props.errors.email}</span>
                 )}
-                <TextField
+                <LoginInputs
                   margin="normal"
                   required
                   variant="filled"
                   fullWidth
-                  inputProps={{
-                    style: {
-                      background: theme === "dark" ? "#fff" : "#3b3a37",
-                      color: theme === "dark" ? "#3b3a37" : "#fff",
-                    },
-                  }}
-                  sx={{
-                    "& label.Mui-focused": {
-                      color: "primary.dark",
-                    },
-                  }}
-                  color={theme === "dark" ? "secondary" : "primary"}
                   name="password"
                   label="Password"
                   type="password"
@@ -139,7 +113,6 @@ const Login = () => {
                 <Button
                   type="submit"
                   fullWidth
-                  color={theme === "dark" ? "secondary" : "primary"}
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
@@ -151,9 +124,6 @@ const Login = () => {
                       Forgot password?
                     </Link>
                   </Grid>
-                  {/* <Grid item>
-                    <Link to="">{"Don't have an account? Sign Up"}</Link>
-                  </Grid> */}
                 </Grid>
               </Box>
             </Box>

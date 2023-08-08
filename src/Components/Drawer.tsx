@@ -34,14 +34,6 @@ export default function CustomDrawer(props: any) {
         open={context.openDrawer}
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
-        PaperProps={{
-          sx: {
-            backgroundColor:
-              theme === "dark" ? "primary.dark" : "primary.light",
-            color: theme === "dark" ? "primary.light" : "primary.dark",
-            width: drawerComp === "notification" ? "100%" : null,
-          },
-        }}
       >
         <Box
           sx={{

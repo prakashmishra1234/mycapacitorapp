@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { setLocalStorageData } from "../utils/helper";
+import { MainBox } from "../Components/Styled/Components";
 
 const Main = () => {
   const context = React.useContext(AuthContext);
@@ -34,6 +35,7 @@ const Main = () => {
   const onThemeChange = (theme: string): void => {
     setLocalStorageData("mycapacitorapptheme", { theme: theme });
     setTheme(theme);
+    window.location.reload();
   };
 
   const onMenuChange = (value: boolean): void => {
@@ -80,12 +82,6 @@ const Main = () => {
         </IconButton>
       </Tooltip>
       <Menu
-        PaperProps={{
-          style: {
-            backgroundColor: theme === "dark" ? "#3b3a37" : "#fff",
-            color: theme === "dark" ? "#fff" : "#3b3a37",
-          },
-        }}
         sx={{ mt: "45px" }}
         id="menu-appbar"
         anchorOrigin={{
@@ -154,12 +150,7 @@ const Main = () => {
 
   return (
     <React.Fragment>
-      <Box
-        sx={{
-          backgroundColor: theme === "dark" ? "primary.dark" : "primary.light",
-          color: theme === "dark" ? "primary.light" : "primary.dark",
-        }}
-      >
+      <MainBox>
         <CustomDrawer />
         {Navbar}
         <Box
@@ -170,7 +161,7 @@ const Main = () => {
         >
           <Outlet />
         </Box>
-      </Box>
+      </MainBox>
     </React.Fragment>
   );
 };

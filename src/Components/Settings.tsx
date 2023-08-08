@@ -107,6 +107,12 @@ const Settings = () => {
     </React.Fragment>
   );
 
+  const themeChange = (theme: string): void => {
+    setTheme(theme);
+    setLocalStorageData("mycapacitorapptheme", { theme: theme });
+    window.location.reload();
+  };
+
   return (
     <Box sx={{ padding: "1rem", width: "100%" }}>
       {isPlatform("android") ? AndroidSettings : null}
@@ -117,11 +123,9 @@ const Settings = () => {
             checked={theme === "dark" ? true : false}
             onChange={(e) => {
               if (theme === "dark") {
-                setTheme("light");
-                setLocalStorageData("mycapacitorapptheme", { theme: "light" });
+                themeChange("light");
               } else {
-                setTheme("dark");
-                setLocalStorageData("mycapacitorapptheme", { theme: "dark" });
+                themeChange("dark");
               }
             }}
           />
