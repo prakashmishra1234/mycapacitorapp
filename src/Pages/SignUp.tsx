@@ -13,14 +13,16 @@ import {
   LoginForm,
   LoginValidator,
   setLocalStorageData,
+  SignupValidator,
 } from "../utils/helper";
 import { AuthContext } from "../Store";
 import { makeStyles } from "@mui/material";
 import { LoginInputs } from "../Components/Styled/Components";
 import {
   getAuth,
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateCurrentUser,
+  updateProfile,
 } from "firebase/auth";
 import toast from "react-hot-toast";
 
@@ -32,12 +34,17 @@ const SignUp = () => {
   const onclickSignup = (value: LoginForm) => {
     const authentication = getAuth();
     createUserWithEmailAndPassword(authentication, value.email, value.password)
-      .then((res) => {
-        res?.user.getIdTokenResult().then((res) => {
-          console.log(res.token);
-          setLogin(true);
-          setLocalStorageData("mycapacitorappLogin", { isLoggedIn: true });
-          navigate("/");
+      .then((result) => {
+        updateProfile(result.user, { displayName: value.name }).then((res) => {
+          console.log(result);
+          result?.user.getIdTokenResult().then((res) => {
+            setLogin(true);
+            setLocalStorageData("mycapacitorappLogin", {
+              isLoggedIn: true,
+              uid: result.user.uid ?? "",
+            });
+            navigate("/");
+          });
         });
       })
       .catch((err) => {
@@ -48,8 +55,8 @@ const SignUp = () => {
 
   return (
     <Formik
-      initialValues={LoginValidator.initials}
-      validationSchema={LoginValidator.validation}
+      initialValues={SignupValidator.initials}
+      validationSchema={SignupValidator.validation}
       onSubmit={(values) => {
         onclickSignup(values);
       }}
@@ -57,6 +64,22 @@ const SignUp = () => {
       {(props) => (
         <>
           <Box component="form" onSubmit={props.handleSubmit} sx={{ mt: 1 }}>
+            <LoginInputs
+              margin="normal"
+              required
+              variant="filled"
+              fullWidth
+              id="name"
+              label="Full name"
+              name="name"
+              autoComplete="name"
+              onChange={(event) => {
+                props.setFieldValue("name", event.target.value);
+              }}
+            />
+            {props.errors.email && props.touched.email && (
+              <span style={{ color: "red" }}>{props.errors.name}</span>
+            )}
             <LoginInputs
               margin="normal"
               required

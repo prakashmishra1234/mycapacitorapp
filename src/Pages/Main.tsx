@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { setLocalStorageData } from "../utils/helper";
 import { MainBox } from "../Components/Styled/Components";
+import { getAuth } from "firebase/auth";
 
 const Main = () => {
   const context = React.useContext(AuthContext);
@@ -21,6 +22,17 @@ const Main = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(false);
   const { theme, setTheme, setOpenDrawer, setDrawerComp, setdrawerAnchor } =
     context;
+
+  const getUserData = () => {
+    const { uid } = JSON.parse(localStorage.getItem("mycapacitorappLogin")!);
+    getAuth().onAuthStateChanged((user) => {
+      console.log(user);
+    });
+  };
+
+  React.useEffect(() => {
+    getUserData();
+  }, []);
 
   const toggleDrawer = (
     value: boolean,

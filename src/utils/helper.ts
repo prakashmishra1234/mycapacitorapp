@@ -5,7 +5,7 @@ export const SignupValidator = {
     name: "",
     email: "",
     password: "",
-    avatar: "",
+    // avatar: "",
   },
   validation: yup.object().shape({
     name: yup.string().required("Full Name is required"),
@@ -17,11 +17,12 @@ export const SignupValidator = {
       )
       .required("email is required"),
     password: yup.string().required("password is required"),
-    avatar: yup.mixed().required("Profile picture is required"),
+    // avatar: yup.mixed().required("Profile picture is required"),
   }),
 };
 
 export interface LoginForm {
+  name?: string;
   email: string;
   password: string;
 }
