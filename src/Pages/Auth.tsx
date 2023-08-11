@@ -46,14 +46,21 @@ const Auth = () => {
       sx={{
         display: "flex",
         justifyContent: "center",
+        flexDirection: "column",
         alignItems: "center",
         height: "100%",
         width: "100%",
       }}
     >
+      <Typography
+        variant="h6"
+        style={{ fontFamily: "monospace", marginBottom: "3rem" }}
+      >
+        My Application
+      </Typography>
       <Box
         sx={{
-          width: { md: "40%", xs: "100%" },
+          width: { md: "40%" },
           margin: { md: "1rem", xs: "0.5rem" },
           padding: "1rem",
           border: "1px solid grey",
