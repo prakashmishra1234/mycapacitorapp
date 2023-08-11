@@ -119,7 +119,7 @@ const Sidebar = () => {
         ) : (
           <Typography sx={{ margin: "1rem 0" }}>
             <Link
-              to="/login"
+              to="/auth"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Login

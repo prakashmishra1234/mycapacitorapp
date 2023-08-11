@@ -7,7 +7,7 @@ const ProtectedRoute = (props: any) => {
   if (temp?.isLoggedIn)
     return <React.Fragment>{props.children}</React.Fragment>;
 
-  return <Navigate to="/login" />;
+  return <Navigate to="/auth" />;
 };
 
 export default ProtectedRoute;

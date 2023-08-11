@@ -8,7 +8,7 @@ import Settings from "./Settings";
 
 export default function CustomDrawer(props: any) {
   const context = React.useContext(AuthContext);
-  const { drawerComp, drawerAnchor, theme, setOpenDrawer } = context;
+  const { drawerComp, drawerAnchor, setOpenDrawer } = context;
 
   const toggleDrawer = (value: boolean) => () => {
     setOpenDrawer(value);

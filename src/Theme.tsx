@@ -16,7 +16,7 @@ const mode = JSON.parse(localStorage.getItem("mycapacitorapptheme")!);
 
 const theme = createTheme({
   palette: {
-    mode: mode.theme,
+    mode: mode?.theme ?? "dark",
     primary: primary,
     secondary: secondary,
   },
@@ -70,6 +70,38 @@ const theme = createTheme({
             theme.theme.palette.mode === "dark"
               ? theme.theme.palette.primary.light
               : theme.theme.palette.primary.main,
+          "&:hover": {
+            color:
+              theme.theme.palette.mode === "dark"
+                ? theme.theme.palette.primary.light
+                : theme.theme.palette.primary.main,
+            backgroundColor:
+              theme.theme.palette.mode === "dark"
+                ? theme.theme.palette.primary.main
+                : theme.theme.palette.primary.light,
+          },
+        }),
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: (theme) => ({
+          "&.MuiTab-root": {
+            "&:hover": {},
+          },
+          "&.Mui-selected": {
+            fontSize: "1rem",
+          },
+        }),
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: (theme) => ({
+          color:
+            theme.theme.palette.mode === "dark"
+              ? theme.theme.palette.primary.main
+              : theme.theme.palette.primary.light,
         }),
       },
     },

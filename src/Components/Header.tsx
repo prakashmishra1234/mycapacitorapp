@@ -52,7 +52,7 @@ const Header = () => {
         ) : (
           <Typography sx={{ margin: "0 1rem" }}>
             <Link
-              to="/login"
+              to="/auth"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               Login

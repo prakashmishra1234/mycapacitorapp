@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../Pages/Home";
 import Main from "../Pages/Main";
-import Login from "../Pages/Login";
 import Profile from "../Pages/Profile";
 import About from "../Pages/About";
 import ProtectedRoute from "./comp/ProtectedRoute";
@@ -10,6 +9,8 @@ import PublicRoute from "./comp/PublicRoute";
 import { AuthContext } from "../Store";
 import { RegisterPushNotification } from "../pushNotification";
 import { setLocalStorageData } from "../utils/helper";
+
+import Auth from "../Pages/Auth";
 
 const Navigation = () => {
   const context = React.useContext(AuthContext);
@@ -45,10 +46,10 @@ const Navigation = () => {
   return (
     <Routes>
       <Route
-        path="/login"
+        path="/auth"
         element={
           <PublicRoute>
-            <Login />
+            <Auth />
           </PublicRoute>
         }
       />

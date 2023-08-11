@@ -24,16 +24,16 @@ import {
 } from "firebase/auth";
 import toast from "react-hot-toast";
 
-const Login = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const context = React.useContext(AuthContext);
   const { setLogin } = context;
 
-  const onclickLogin = (value: LoginForm) => {
+  const onclickSignup = (value: LoginForm) => {
     const authentication = getAuth();
-    signInWithEmailAndPassword(authentication, value.email, value.password)
+    createUserWithEmailAndPassword(authentication, value.email, value.password)
       .then((res) => {
-        res?.user?.getIdTokenResult().then((res) => {
+        res?.user.getIdTokenResult().then((res) => {
           console.log(res.token);
           setLogin(true);
           setLocalStorageData("mycapacitorappLogin", { isLoggedIn: true });
@@ -42,7 +42,7 @@ const Login = () => {
       })
       .catch((err) => {
         toast.error(err?.message ?? "Something went wrong!");
-        console.error(err.message);
+        console.log(err);
       });
   };
 
@@ -51,7 +51,7 @@ const Login = () => {
       initialValues={LoginValidator.initials}
       validationSchema={LoginValidator.validation}
       onSubmit={(values) => {
-        onclickLogin(values);
+        onclickSignup(values);
       }}
     >
       {(props) => (
@@ -94,20 +94,20 @@ const Login = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Login
+              Sign Up
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link style={{ color: "inherit" }} to="">
-                  Forgot password?
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
+          <Grid container>
+            <Grid item xs>
+              <Link style={{ color: "inherit" }} to="">
+                Forgot password?
+              </Link>
+            </Grid>
+          </Grid>
         </>
       )}
     </Formik>
   );
 };
 
-export default Login;
+export default SignUp;
