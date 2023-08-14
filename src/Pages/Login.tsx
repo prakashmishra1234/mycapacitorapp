@@ -27,16 +27,17 @@ import toast from "react-hot-toast";
 const Login = () => {
   const navigate = useNavigate();
   const context = React.useContext(AuthContext);
-  const { setLogin } = context;
+  const { setUid } = context;
 
   const onclickLogin = (value: LoginForm) => {
     const authentication = getAuth();
     signInWithEmailAndPassword(authentication, value.email, value.password)
-      .then((res) => {
-        res?.user?.getIdTokenResult().then((res) => {
-          console.log(res.token);
-          setLogin(true);
-          setLocalStorageData("mycapacitorappLogin", { isLoggedIn: true });
+      .then((result) => {
+        result?.user?.getIdTokenResult().then((res) => {
+          setUid(result.user.uid ?? "");
+          setLocalStorageData("mycapacitorappLogin", {
+            uid: result.user.uid ?? "",
+          });
           navigate("/");
         });
       })

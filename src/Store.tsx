@@ -14,8 +14,8 @@ interface IContext {
   setdrawerAnchor: React.Dispatch<React.SetStateAction<DrawerAnchorEnum>>;
   theme: string;
   setTheme: React.Dispatch<React.SetStateAction<string>>;
-  login: boolean;
-  setLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  uid: string;
+  setUid: React.Dispatch<React.SetStateAction<string>>;
   checkedNotification: boolean;
   setCheckedNotification: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -29,8 +29,8 @@ const AuthContext = React.createContext<IContext>({
   setdrawerAnchor: () => {},
   theme: "light",
   setTheme: () => {},
-  login: false,
-  setLogin: () => {},
+  uid: "",
+  setUid: () => {},
   checkedNotification: false,
   setCheckedNotification: () => {},
 });
@@ -45,7 +45,7 @@ const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     DrawerAnchorEnum.Left
   );
   const [theme, setTheme] = React.useState("light");
-  const [login, setLogin] = React.useState(false);
+  const [uid, setUid] = React.useState("");
 
   return (
     <AuthContext.Provider
@@ -58,8 +58,8 @@ const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         setdrawerAnchor,
         theme,
         setTheme,
-        login,
-        setLogin,
+        uid,
+        setUid,
         checkedNotification,
         setCheckedNotification,
       }}

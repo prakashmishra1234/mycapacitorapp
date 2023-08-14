@@ -6,14 +6,12 @@ import { setLocalStorageData } from "../utils/helper";
 
 const Header = () => {
   const context = React.useContext(AuthContext);
-  const { login, setLogin } = context;
+  const { uid, setUid } = context;
 
   const onclickLogout = (value: boolean) => {
-    setLogin(value);
     if (value === false) {
       localStorage.removeItem("mycapacitorappLogin");
-    } else {
-      setLocalStorageData("mycapacitorappLogin", { isLoggedIn: value });
+      setUid("");
     }
   };
 
@@ -41,7 +39,7 @@ const Header = () => {
             Profile
           </Link>
         </Typography>
-        {login ? (
+        {uid ? (
           <Typography
             sx={{ margin: "0 1rem", cursor: "pointer" }}
             style={{ textDecoration: "none", color: "inherit" }}

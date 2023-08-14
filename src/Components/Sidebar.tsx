@@ -8,7 +8,7 @@ import { setLocalStorageData } from "../utils/helper";
 
 const Sidebar = () => {
   const context = React.useContext(AuthContext);
-  const { setOpenDrawer, login, setDrawerComp, setdrawerAnchor, setLogin } =
+  const { setOpenDrawer, uid, setDrawerComp, setdrawerAnchor, setUid } =
     context;
 
   const closeDrawer = (value: boolean) => {
@@ -25,12 +25,10 @@ const Sidebar = () => {
     setdrawerAnchor(direction);
   };
 
-  const onclickLogin = (value: boolean) => {
-    setLogin(value);
+  const onclickLogout = (value: boolean) => {
     if (value === false) {
       localStorage.removeItem("mycapacitorappLogin");
-    } else {
-      setLocalStorageData("mycapacitorappLogin", { isLoggedIn: value });
+      setUid("");
     }
     closeDrawer(false);
   };
@@ -108,11 +106,11 @@ const Sidebar = () => {
           </Link>
         </Typography>
 
-        {login ? (
+        {uid ? (
           <Typography
             sx={{ margin: "1rem 0", cursor: "pointer" }}
             style={{ textDecoration: "none", color: "inherit" }}
-            onClick={() => onclickLogin(false)}
+            onClick={() => onclickLogout(false)}
           >
             Logout
           </Typography>

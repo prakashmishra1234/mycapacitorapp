@@ -9,21 +9,20 @@ import PublicRoute from "./comp/PublicRoute";
 import { AuthContext } from "../Store";
 import { RegisterPushNotification } from "../pushNotification";
 import { setLocalStorageData } from "../utils/helper";
-
 import Auth from "../Pages/Auth";
 
 const Navigation = () => {
   const context = React.useContext(AuthContext);
-  const { setLogin, setTheme, setCheckedNotification } = context;
+  const { setUid, setTheme, setCheckedNotification } = context;
 
   React.useEffect(() => {
     const mode = JSON.parse(localStorage.getItem("mycapacitorapptheme")!);
-    const login = JSON.parse(localStorage.getItem("mycapacitorappLogin")!);
+    const loginData = JSON.parse(localStorage.getItem("mycapacitorappLogin")!);
     const notificationService = JSON.parse(
       localStorage.getItem("mycapacitorappnotification")!
     );
     setTheme(mode?.theme ?? "light");
-    setLogin(login?.isLoggedIn ?? false);
+    setUid(loginData?.uid ?? "");
     if (notificationService?.isNotificationEnabled) {
       requestNotificationPermission();
     }
