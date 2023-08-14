@@ -10,6 +10,7 @@ import { AuthContext } from "../Store";
 import { RegisterPushNotification } from "../pushNotification";
 import { setLocalStorageData } from "../utils/helper";
 import Auth from "../Pages/Auth";
+import { getAuth } from "firebase/auth";
 
 const Navigation = () => {
   const context = React.useContext(AuthContext);

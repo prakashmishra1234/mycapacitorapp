@@ -5,6 +5,12 @@ export enum DrawerAnchorEnum {
   Right = "right",
   Bottom = "bottom",
 }
+
+interface UserData {
+  Name: string;
+  Email: string;
+  PhoneNumber: string;
+}
 interface IContext {
   openDrawer: boolean;
   setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +24,8 @@ interface IContext {
   setUid: React.Dispatch<React.SetStateAction<string>>;
   checkedNotification: boolean;
   setCheckedNotification: React.Dispatch<React.SetStateAction<boolean>>;
+  userData: UserData;
+  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
 }
 
 const AuthContext = React.createContext<IContext>({
@@ -33,6 +41,12 @@ const AuthContext = React.createContext<IContext>({
   setUid: () => {},
   checkedNotification: false,
   setCheckedNotification: () => {},
+  userData: {
+    Name: "",
+    Email: "",
+    PhoneNumber: "",
+  },
+  setUserData: () => {},
 });
 
 const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -46,6 +60,11 @@ const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
   const [theme, setTheme] = React.useState("light");
   const [uid, setUid] = React.useState("");
+  const [userData, setUserData] = React.useState({
+    Name: "",
+    Email: "",
+    PhoneNumber: "",
+  });
 
   return (
     <AuthContext.Provider
@@ -62,6 +81,8 @@ const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         setUid,
         checkedNotification,
         setCheckedNotification,
+        userData,
+        setUserData,
       }}
     >
       {children}
