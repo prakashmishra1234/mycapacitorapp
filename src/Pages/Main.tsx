@@ -15,6 +15,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { setLocalStorageData } from "../utils/helper";
 import { MainBox } from "../Components/Styled/Components";
 import { getAuth } from "firebase/auth";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 const Main = () => {
   const context = React.useContext(AuthContext);
@@ -23,6 +24,7 @@ const Main = () => {
   const {
     theme,
     userData,
+    setUid,
     setTheme,
     setOpenDrawer,
     setDrawerComp,
@@ -34,7 +36,8 @@ const Main = () => {
     // const { uid } = JSON.parse(localStorage.getItem("mycapacitorappLogin")!);
     getAuth().onAuthStateChanged((user) => {
       const UserData = {
-        Name: user?.displayName ?? "",
+        FirstName: user?.displayName?.split(" ")[0] ?? "",
+        FullName: user?.displayName ?? "",
         Email: user?.email ?? "",
         PhoneNumber: user?.phoneNumber ?? "",
       };
@@ -64,6 +67,14 @@ const Main = () => {
 
   const onMenuChange = (value: boolean): void => {
     setAnchorElUser(value);
+  };
+
+  const onclickLogout = (value: boolean) => {
+    if (value === false) {
+      localStorage.removeItem("mycapacitorappLogin");
+      setUid("");
+      navigate("/auth");
+    }
   };
 
   const themebutton = (
@@ -101,7 +112,9 @@ const Main = () => {
         <IconButton onClick={() => onMenuChange(true)} sx={{ p: 0 }}>
           <Avatar
             alt="Remy Sharp"
-            src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=740&t=st=1689324579~exp=1689325179~hmac=6fe260c6e879ea8a25412bcb248295f073e7f127fc680d5c2e853773f3463aa5"
+            src={`https://ui-avatars.com/api/?name=${
+              userData.FirstName.split("")[0]
+            }`}
           />
         </IconButton>
       </Tooltip>
@@ -133,6 +146,17 @@ const Main = () => {
           </Typography>
         </MenuItem>
         {themebutton}
+        <MenuItem
+          sx={{ display: "flex" }}
+          onClick={() => {
+            onclickLogout(false);
+          }}
+        >
+          <LogoutOutlinedIcon />
+          <Typography textAlign="center" sx={{ marginLeft: "1rem" }}>
+            Logout
+          </Typography>
+        </MenuItem>
       </Menu>
     </Box>
   );

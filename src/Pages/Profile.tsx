@@ -6,7 +6,7 @@ const Profile = () => {
   const { userData } = context;
   return (
     <div>
-      <h1>{userData.Name ?? ""}</h1>
+      <h1>{userData.FullName ?? ""}</h1>
     </div>
   );
 };

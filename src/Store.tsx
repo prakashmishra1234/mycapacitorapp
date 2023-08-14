@@ -7,7 +7,8 @@ export enum DrawerAnchorEnum {
 }
 
 interface UserData {
-  Name: string;
+  FirstName: string;
+  FullName: string;
   Email: string;
   PhoneNumber: string;
 }
@@ -42,7 +43,8 @@ const AuthContext = React.createContext<IContext>({
   checkedNotification: false,
   setCheckedNotification: () => {},
   userData: {
-    Name: "",
+    FirstName: "",
+    FullName: "",
     Email: "",
     PhoneNumber: "",
   },
@@ -61,7 +63,8 @@ const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = React.useState("light");
   const [uid, setUid] = React.useState("");
   const [userData, setUserData] = React.useState({
-    Name: "",
+    FirstName: "",
+    FullName: "",
     Email: "",
     PhoneNumber: "",
   });
