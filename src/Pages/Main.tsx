@@ -24,16 +24,18 @@ const Main = () => {
   const {
     theme,
     userData,
+    backdropOpen,
     setUid,
     setTheme,
     setOpenDrawer,
     setDrawerComp,
     setdrawerAnchor,
     setUserData,
+    setBackdropOpen,
   } = context;
 
   const getUserData = () => {
-    // const { uid } = JSON.parse(localStorage.getItem("mycapacitorappLogin")!);
+    setBackdropOpen(true);
     getAuth().onAuthStateChanged((user) => {
       const UserData = {
         FirstName: user?.displayName?.split(" ")[0] ?? "",
@@ -42,6 +44,7 @@ const Main = () => {
         PhoneNumber: user?.phoneNumber ?? "",
       };
       setUserData(UserData);
+      setBackdropOpen(false);
     });
   };
 
@@ -198,18 +201,20 @@ const Main = () => {
 
   return (
     <React.Fragment>
-      <MainBox>
-        <CustomDrawer />
-        {Navbar}
-        <Box
-          sx={{
-            height: { xs: "93vh" },
-            overflowY: "auto",
-          }}
-        >
-          <Outlet />
-        </Box>
-      </MainBox>
+      {backdropOpen ? null : (
+        <MainBox>
+          <CustomDrawer />
+          {Navbar}
+          <Box
+            sx={{
+              height: { xs: "93vh" },
+              overflowY: "auto",
+            }}
+          >
+            <Outlet />
+          </Box>
+        </MainBox>
+      )}
     </React.Fragment>
   );
 };

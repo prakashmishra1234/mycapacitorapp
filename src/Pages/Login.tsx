@@ -27,9 +27,10 @@ import toast from "react-hot-toast";
 const Login = () => {
   const navigate = useNavigate();
   const context = React.useContext(AuthContext);
-  const { setUid } = context;
+  const { setUid, setBackdropOpen } = context;
 
   const onclickLogin = (value: LoginForm) => {
+    setBackdropOpen(true);
     const authentication = getAuth();
     signInWithEmailAndPassword(authentication, value.email, value.password)
       .then((result) => {
@@ -38,10 +39,12 @@ const Login = () => {
           setLocalStorageData("mycapacitorappLogin", {
             uid: result.user.uid ?? "",
           });
+          setBackdropOpen(false);
           navigate("/");
         });
       })
       .catch((err) => {
+        setBackdropOpen(false);
         toast.error(err?.message ?? "Something went wrong!");
         console.error(err.message);
       });

@@ -21,3 +21,9 @@ export const LoginInputs = styled(TextField)(({ theme }) => ({
         : theme.palette.primary.main,
   },
 }));
+
+export const ProfileBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  marginBottom: "2rem",
+}));

@@ -44,6 +44,19 @@ export const LoginValidator = {
   }),
 };
 
+export const PasswordValidator = {
+  initials: {
+    password: "",
+    confirmPassword: "",
+  },
+  validation: yup.object().shape({
+    password: yup.string().required("password is required"),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], "Password and Confirm Password must match"),
+  }),
+};
+
 export const setLocalStorageData = (key: string, value: any): void => {
   localStorage.setItem(key, JSON.stringify(value));
 };
